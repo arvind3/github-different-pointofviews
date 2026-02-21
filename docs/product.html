@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<!-- RETAIL ANALYTICS — Product Perspective -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Retail Analytics · Product</title>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink:#0a0a14; --surface:#12121f; --card:#1a1a2e; --border:#2a2a45;
+      --primary:#6366f1; --primary-light:#818cf8; --accent:#f59e0b;
+      --text:#e2e8f0; --muted:#94a3b8; --green:#10b981;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--ink);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+    .fu{animation:fadeUp .6s ease both;}
+    .d1{animation-delay:.1s}.d2{animation-delay:.2s}.d3{animation-delay:.3s}
+    .gradient-text{background:linear-gradient(135deg,#10b981,#6366f1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .section-label{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--green);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
+    .feature-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;transition:all .22s;}
+    .feature-card:hover{border-color:rgba(16,185,129,.4);transform:translateY(-3px);box-shadow:0 12px 36px rgba(0,0,0,.35);}
+    nav a{transition:color .2s;}
+    a{text-decoration:none;}
+  </style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+/* ===== RETAIL ANALYTICS — Product Page ===== */
+const GH = () => (
+  <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+  </svg>
+);
+
+const Nav = () => (
+  <nav style={{background:'rgba(10,10,20,.95)',backdropFilter:'blur(16px)',borderBottom:'1px solid var(--border)',position:'sticky',top:0,zIndex:50}}>
+    <div style={{maxWidth:'1100px',margin:'0 auto',padding:'0 24px',display:'flex',alignItems:'center',justifyContent:'space-between',height:'60px'}}>
+      <a href="index.html" style={{fontWeight:700,fontSize:'1rem',color:'var(--text)'}}>
+        <span style={{color:'var(--primary-light)'}}>Retail</span> Analytics
+      </a>
+      <div style={{display:'flex',gap:'20px',alignItems:'center',fontSize:'.85rem'}}>
+        <a href="engineering.html" style={{color:'var(--muted)'}}>Engineering</a>
+        <a href="product.html" style={{color:'var(--green)',fontWeight:600}}>Product</a>
+        <a href="capability.html" style={{color:'var(--muted)'}}>Capability</a>
+        <a href="executive.html" style={{color:'var(--muted)'}}>Executive</a>
+        <a href="https://github.com/arvind3/retail_analytics" target="_blank"
+           style={{color:'var(--muted)',border:'1px solid var(--border)',padding:'5px 12px',borderRadius:'6px',display:'flex',alignItems:'center',gap:'6px',fontFamily:'JetBrains Mono',fontSize:'.78rem'}}>
+          <GH/> GitHub
+        </a>
+      </div>
+    </div>
+  </nav>
+);
+
+const Hero = () => (
+  <section style={{padding:'80px 24px 64px',textAlign:'center',background:'var(--ink)',borderBottom:'1px solid var(--border)'}}>
+    <div style={{maxWidth:'760px',margin:'0 auto',position:'relative'}}>
+      <div style={{position:'absolute',inset:0,background:'radial-gradient(ellipse 80% 60% at 50% 0%,rgba(16,185,129,0.1),transparent)',pointerEvents:'none'}}/>
+      <div className="fu" style={{marginBottom:'16px'}}>
+        <span style={{background:'rgba(16,185,129,.1)',border:'1px solid rgba(16,185,129,.25)',color:'var(--green)',borderRadius:'20px',padding:'4px 14px',fontSize:'.75rem',fontFamily:'JetBrains Mono',fontWeight:500}}>
+          Product Perspective
+        </span>
+      </div>
+      <h1 className="fu d1" style={{fontSize:'clamp(2rem,5vw,3.2rem)',fontWeight:800,lineHeight:1.15,letterSpacing:'-.03em',marginBottom:'18px'}}>
+        Retail insights in seconds.<br/><span className="gradient-text">No setup. No IT ticket. No wait.</span>
+      </h1>
+      <p className="fu d2" style={{fontSize:'1.05rem',color:'var(--muted)',lineHeight:1.8,maxWidth:'560px',margin:'0 auto 28px'}}>
+        Open a URL. See your KPIs. Write a query. Understand your customers.
+        Retail Analytics puts the full power of a data warehouse in any browser tab — for free, forever.
+      </p>
+      <div className="fu d3" style={{display:'flex',gap:'12px',justifyContent:'center',flexWrap:'wrap'}}>
+        <a href="https://arvind3.github.io/retail_analytics/#/" target="_blank"
+           style={{display:'inline-flex',alignItems:'center',gap:'8px',padding:'12px 26px',background:'var(--green)',color:'white',borderRadius:'8px',fontWeight:700,fontSize:'.9rem'}}>
+          Launch the Platform →
+        </a>
+        <a href="https://github.com/arvind3/retail_analytics" target="_blank"
+           style={{display:'inline-flex',alignItems:'center',gap:'8px',padding:'12px 26px',background:'var(--card)',color:'var(--text)',border:'1px solid var(--border)',borderRadius:'8px',fontWeight:600,fontSize:'.9rem'}}>
+          <GH/> View Source
+        </a>
+      </div>
+    </div>
+  </section>
+);
+
+const Problem = () => (
+  <section style={{padding:'64px 24px',maxWidth:'1100px',margin:'0 auto'}}>
+    <p className="section-label">The Problem</p>
+    <h2 style={{fontSize:'1.75rem',fontWeight:700,marginBottom:'20px'}}>Retail decisions wait on data that waits on IT</h2>
+    <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'32px',alignItems:'start'}}>
+      <div>
+        <p style={{color:'var(--muted)',lineHeight:1.85,fontSize:'1rem',marginBottom:'16px'}}>
+          It's Monday morning. The weekly promo ran over the weekend and you need to know if it worked —
+          which segments responded, which products lifted, and whether the discount eroded margin.
+          You need that answer before the 10am category review.
+        </p>
+        <p style={{color:'var(--muted)',lineHeight:1.85,fontSize:'1rem',marginBottom:'16px'}}>
+          In most retail organisations you send a Slack to the data team. They queue it behind three other
+          requests. You get a spreadsheet on Wednesday. The meeting happened Tuesday. The decision was made
+          on gut instinct.
+        </p>
+        <p style={{color:'var(--muted)',lineHeight:1.85,fontSize:'1rem'}}>
+          The tools exist — Tableau, Looker, Snowflake — but they require IT provisioning, licence
+          allocation, and training. The people who need the insight most are furthest from the tools.
+        </p>
+      </div>
+      <div style={{background:'var(--surface)',border:'1px solid var(--border)',borderRadius:'14px',padding:'28px'}}>
+        <p style={{fontFamily:'JetBrains Mono',fontSize:'.72rem',color:'var(--muted)',letterSpacing:'.1em',textTransform:'uppercase',marginBottom:'18px'}}>The typical retail analytics bottleneck</p>
+        {[
+          {l:'Business question arises', t:'Mon 8am', dot:'var(--text)'},
+          {l:'Request submitted to data team', t:'Mon 9am', dot:'var(--muted)'},
+          {l:'Query scheduled in backlog', t:'Mon 11am', dot:'var(--muted)'},
+          {l:'Data pulled and formatted', t:'Tue 2pm', dot:'var(--muted)'},
+          {l:'Spreadsheet delivered', t:'Wed 9am', dot:'var(--accent)'},
+          {l:'Decision already made', t:'Tue 10am', dot:'#ef4444'},
+        ].map((r,i)=>(
+          <div key={i} style={{display:'flex',alignItems:'center',gap:'14px',padding:'10px 0',borderBottom:i<5?'1px solid var(--border)':'none'}}>
+            <div style={{width:'9px',height:'9px',borderRadius:'50%',background:r.dot,flexShrink:0}}/>
+            <span style={{flex:1,fontSize:'.87rem',color:r.dot==='#ef4444'?'#ef4444':'var(--text)'}}>{r.l}</span>
+            <span style={{fontFamily:'JetBrains Mono',fontSize:'.73rem',color:'var(--muted)'}}>{r.t}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+const Solution = () => (
+  <section style={{padding:'0 24px 64px',maxWidth:'1100px',margin:'0 auto'}}>
+    <p className="section-label">The Solution</p>
+    <h2 style={{fontSize:'1.75rem',fontWeight:700,marginBottom:'20px'}}>Your analyst is now a URL</h2>
+    <p style={{color:'var(--muted)',lineHeight:1.85,fontSize:'1rem',maxWidth:'680px',marginBottom:'28px'}}>
+      Retail Analytics runs entirely in the browser. There's no login to provision, no data to upload,
+      no infrastructure to maintain. You open a link and in under five seconds you have live KPIs,
+      cohort analysis, promo lift charts, and a full SQL workspace.
+    </p>
+    <div style={{background:'linear-gradient(135deg,rgba(99,102,241,.07),rgba(16,185,129,.07))',border:'1px solid rgba(99,102,241,.2)',borderRadius:'14px',padding:'28px'}}>
+      <p style={{fontSize:'1.1rem',fontWeight:600,color:'var(--text)',lineHeight:1.7}}>
+        "The question you have at 8am on Monday gets answered by 8:05am — before you even open your email."
+      </p>
+      <p style={{color:'var(--muted)',fontSize:'.82rem',marginTop:'10px',fontStyle:'italic'}}>* Representative user experience based on platform design</p>
+    </div>
+  </section>
+);
+
+const UserJourney = () => (
+  <section style={{padding:'0 24px 64px',maxWidth:'1100px',margin:'0 auto'}}>
+    <p className="section-label">User Journey</p>
+    <h2 style={{fontSize:'1.75rem',fontWeight:700,marginBottom:'36px'}}>From URL to insight in under 5 steps</h2>
+    <div style={{background:'var(--surface)',border:'1px solid var(--border)',borderRadius:'14px',padding:'32px',overflowX:'auto'}}>
+      <div style={{display:'flex',alignItems:'flex-start',gap:'8px',minWidth:'640px'}}>
+        {[
+          {n:'1',l:'Open URL',s:'Share a link — no login, no install',c:'var(--primary-light)'},
+          null,
+          {n:'2',l:'Data loads',s:'DuckDB-WASM fetches Parquet into browser',c:'var(--green)'},
+          null,
+          {n:'3',l:'Choose view',s:'Executive KPIs, Insights, or SQL Studio',c:'var(--accent)'},
+          null,
+          {n:'4',l:'Explore',s:'Click through charts, filter cohorts, write SQL',c:'#ec4899'},
+          null,
+          {n:'5',l:'Decide',s:'Export, screenshot, or share the URL',c:'#f97316'},
+        ].map((s,i)=> s===null
+          ? <div key={i} style={{color:'var(--border)',fontSize:'1.3rem',alignSelf:'center',flexShrink:0}}>→</div>
+          : <div key={i} style={{flex:1,display:'flex',flexDirection:'column',alignItems:'center',gap:'8px'}}>
+              <div style={{width:'42px',height:'42px',borderRadius:'50%',background:'var(--card)',border:`2px solid ${s.c}`,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:800,fontSize:'1rem',color:s.c}}>{s.n}</div>
+              <div style={{textAlign:'center'}}>
+                <div style={{fontWeight:700,fontSize:'.87rem',color:'var(--text)',marginBottom:'4px'}}>{s.l}</div>
+                <div style={{fontSize:'.74rem',color:'var(--muted)',lineHeight:1.4}}>{s.s}</div>
+              </div>
+            </div>
+        )}
+      </div>
+    </div>
+  </section>
+);
+
+const Features = () => {
+  const features = [
+    {icon:'📊',name:'Executive Dashboard',desc:'Live KPI cards for total sales, unique households, basket value, trips, and promotional revenue. No manual refresh — loaded fresh every session.'},
+    {icon:'🎯',name:'Customer Segmentation',desc:'Retention cohort analysis, segment response curves, and household lifecycle heatmaps. Understand who responds to promotions and who churns — at a glance.'},
+    {icon:'📈',name:'Promo Lift Analysis',desc:'Campaign-by-campaign lift charts. See how each promotion performed against baseline, which product categories responded, and whether the discount was worth the margin.*'},
+    {icon:'🔬',name:'SQL Decision Lab',desc:'Write arbitrary SQL against the full retail dataset. Results render as tables or charts instantly. No data leaves the browser. Ideal for ad-hoc analysis.'},
+    {icon:'🔒',name:'Privacy-Safe by Design',desc:'All data processing happens in your browser. The Parquet dataset never passes through an external server — safe for sensitive retail data.*'},
+    {icon:'⚡',name:'Zero Setup',desc:'No account, no install, no IT request. Share a URL with a colleague and they see the same dashboard in under 5 seconds on any modern browser.'},
+  ];
+  return (
+    <section style={{padding:'0 24px 64px',maxWidth:'1100px',margin:'0 auto'}}>
+      <p className="section-label">Key Features</p>
+      <h2 style={{fontSize:'1.75rem',fontWeight:700,marginBottom:'36px'}}>What you get out of the box</h2>
+      <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))',gap:'16px'}}>
+        {features.map((f,i)=>(
+          <div key={i} className="feature-card">
+            <div style={{fontSize:'1.8rem',marginBottom:'12px'}}>{f.icon}</div>
+            <h3 style={{fontSize:'1rem',fontWeight:700,marginBottom:'8px',color:'var(--text)'}}>{f.name}</h3>
+            <p style={{fontSize:'.84rem',color:'var(--muted)',lineHeight:1.7}}>{f.desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+const Personas = () => {
+  const personas = [
+    {role:'Category Manager / Retail Buyer',emoji:'🛒',
+     pain:'Spends hours chasing the data team for post-promo reports. Decisions are made before the data arrives.',
+     help:'Gets promo lift, basket impact, and customer segment response in under 5 seconds. Walks into Monday review with data.'},
+    {role:'Data Analyst',emoji:'🔬',
+     pain:'Fielding ad-hoc requests on top of existing project work. Repetitive queries for slight variations of the same report.',
+     help:'Shares a SQL Studio URL with stakeholders. They self-serve. Analyst focuses on modelling and insight, not data fetching.'},
+    {role:'Regional / VP of Sales',emoji:'📈',
+     pain:"Dashboard refreshes take minutes. Can't explore on the fly in a meeting without calling someone.",
+     help:'Opens Executive Dashboard on a tablet in the meeting. KPIs are live. Drills into a chart on the spot.'},
+  ];
+  return (
+    <section style={{padding:'0 24px 64px',maxWidth:'1100px',margin:'0 auto'}}>
+      <p className="section-label">Who Is This For</p>
+      <h2 style={{fontSize:'1.75rem',fontWeight:700,marginBottom:'36px'}}>Three users who get their time back</h2>
+      <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(300px,1fr))',gap:'16px'}}>
+        {personas.map((p,i)=>(
+          <div key={i} style={{background:'var(--surface)',border:'1px solid var(--border)',borderRadius:'14px',padding:'24px'}}>
+            <div style={{fontSize:'2rem',marginBottom:'10px'}}>{p.emoji}</div>
+            <h3 style={{fontSize:'1rem',fontWeight:700,marginBottom:'14px',color:'var(--text)'}}>{p.role}</h3>
+            <div style={{marginBottom:'14px'}}>
+              <p style={{fontFamily:'JetBrains Mono',fontSize:'.7rem',color:'var(--muted)',letterSpacing:'.08em',textTransform:'uppercase',marginBottom:'6px'}}>Pain</p>
+              <p style={{fontSize:'.84rem',color:'var(--muted)',lineHeight:1.65}}>{p.pain}</p>
+            </div>
+            <div style={{borderTop:'1px solid var(--border)',paddingTop:'14px'}}>
+              <p style={{fontFamily:'JetBrains Mono',fontSize:'.7rem',color:'var(--green)',letterSpacing:'.08em',textTransform:'uppercase',marginBottom:'6px'}}>How This Helps</p>
+              <p style={{fontSize:'.84rem',color:'var(--text)',lineHeight:1.65}}>{p.help}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+const BeforeAfter = () => (
+  <section style={{padding:'0 24px 64px',maxWidth:'1100px',margin:'0 auto'}}>
+    <p className="section-label">Before vs. After</p>
+    <h2 style={{fontSize:'1.75rem',fontWeight:700,marginBottom:'36px'}}>What changes on Monday morning</h2>
+    <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'16px'}}>
+      <div style={{background:'rgba(239,68,68,.04)',border:'1px solid rgba(239,68,68,.18)',borderRadius:'14px',padding:'24px'}}>
+        <p style={{fontWeight:700,fontSize:'.95rem',color:'#ef4444',marginBottom:'18px'}}>❌ Before</p>
+        {['Open a ticket with the data team','Wait 1–3 days for the report','Receive a static spreadsheet',"Can't drill down — request another ticket",'Meeting happens before data arrives','Decision made on gut instinct','Monthly BI licence costs $500–$2,000*','IT provisioning required per new user'].map((t,i)=>(
+          <div key={i} style={{display:'flex',alignItems:'flex-start',gap:'10px',padding:'8px 0',borderBottom:i<7?'1px solid rgba(239,68,68,.08)':'none'}}>
+            <span style={{color:'#ef4444',flexShrink:0}}>✕</span>
+            <span style={{fontSize:'.86rem',color:'var(--muted)',lineHeight:1.5}}>{t}</span>
+          </div>
+        ))}
+      </div>
+      <div style={{background:'rgba(16,185,129,.04)',border:'1px solid rgba(16,185,129,.18)',borderRadius:'14px',padding:'24px'}}>
+        <p style={{fontWeight:700,fontSize:'.95rem',color:'var(--green)',marginBottom:'18px'}}>✅ After</p>
+        {["Open a URL — that's it",'Data loads in under 5 seconds','Interactive charts and live KPIs','Drill down and explore freely','Walk into the meeting with answers','Decisions made on evidence','Zero cost — open source and free','Share a URL with anyone, instantly'].map((t,i)=>(
+          <div key={i} style={{display:'flex',alignItems:'flex-start',gap:'10px',padding:'8px 0',borderBottom:i<7?'1px solid rgba(16,185,129,.08)':'none'}}>
+            <span style={{color:'var(--green)',flexShrink:0}}>✓</span>
+            <span style={{fontSize:'.86rem',color:'var(--text)',lineHeight:1.5}}>{t}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+const CTA = () => (
+  <section style={{padding:'0 24px 80px',maxWidth:'1100px',margin:'0 auto'}}>
+    <div style={{background:'linear-gradient(135deg,rgba(16,185,129,.07),rgba(99,102,241,.1))',border:'1px solid rgba(99,102,241,.22)',borderRadius:'16px',padding:'52px 40px',textAlign:'center'}}>
+      <h2 style={{fontSize:'2rem',fontWeight:800,marginBottom:'14px',color:'var(--text)'}}>Your retail data is waiting.</h2>
+      <p style={{color:'var(--muted)',fontSize:'1rem',lineHeight:1.75,maxWidth:'460px',margin:'0 auto 32px'}}>
+        No account needed. No setup. Just open the platform and start exploring.
+      </p>
+      <div style={{display:'flex',gap:'14px',justifyContent:'center',flexWrap:'wrap'}}>
+        <a href="https://arvind3.github.io/retail_analytics/#/" target="_blank"
+           style={{display:'inline-flex',alignItems:'center',gap:'8px',padding:'14px 32px',background:'var(--green)',color:'white',borderRadius:'10px',fontWeight:800,fontSize:'1rem'}}>
+          Launch the Platform →
+        </a>
+        <a href="https://github.com/arvind3/retail_analytics" target="_blank"
+           style={{display:'inline-flex',alignItems:'center',gap:'8px',padding:'14px 28px',background:'var(--card)',color:'var(--text)',border:'1px solid var(--border)',borderRadius:'10px',fontWeight:600,fontSize:'1rem'}}>
+          <GH/> View on GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+);
+
+const Footer = () => (
+  <footer style={{borderTop:'1px solid var(--border)',padding:'28px 24px',background:'var(--surface)'}}>
+    <div style={{maxWidth:'1100px',margin:'0 auto',display:'flex',alignItems:'center',justifyContent:'space-between',flexWrap:'wrap',gap:'12px'}}>
+      <div>
+        <span style={{fontWeight:700,fontSize:'1rem',color:'var(--text)'}}>Retail Analytics · <span style={{color:'var(--green)'}}>Product</span></span>
+        <p style={{fontSize:'.72rem',color:'var(--muted)',fontFamily:'JetBrains Mono',marginTop:'4px',opacity:.6}}>
+          github.com/arvind3/retail_analytics · * inferred from repo analysis
+        </p>
+      </div>
+      <div style={{display:'flex',gap:'14px',alignItems:'center',fontSize:'.85rem'}}>
+        <a href="engineering.html" style={{color:'var(--muted)'}}>← Engineering</a>
+        <a href="capability.html" style={{color:'var(--muted)'}}>Capability →</a>
+      </div>
+    </div>
+  </footer>
+);
+
+const App = () => (
+  <div><Nav/><Hero/><Problem/><Solution/><UserJourney/><Features/><Personas/><BeforeAfter/><CTA/><Footer/></div>
+);
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FakerUI — Capability</title>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg-primary:#080c14; --bg-surface:#0f172a; --bg-card:#1a2438; --accent-cyan:#22d3ee; --accent-emerald:#34d399; --accent-purple:#a78bfa; --accent-amber:#fbbf24; --text-primary:#f1f5f9; --text-secondary:#94a3b8; --text-muted:#475569; --border:#1e293b; --border-light:#334155; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--bg-primary); color:var(--text-primary); font-family:'Space Grotesk',sans-serif; }
+    @keyframes fadeInUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+    .fade-in { animation:fadeInUp .6s ease-out both; } .fade-in-1 { animation:fadeInUp .6s .1s ease-out both; } .fade-in-2 { animation:fadeInUp .6s .2s ease-out both; } .fade-in-3 { animation:fadeInUp .6s .3s ease-out both; }
+    .hero-bg { background-image: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(167,139,250,0.14) 0%, transparent 60%), linear-gradient(rgba(167,139,250,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(167,139,250,0.03) 1px, transparent 1px); background-size:100% 100%, 60px 60px, 60px 60px; }
+    .gradient-text { background:linear-gradient(135deg,#a78bfa,#22d3ee); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .tag { font-family:'JetBrains Mono',monospace; font-size:0.7rem; padding:3px 10px; border-radius:20px; font-weight:500; }
+    .section-label { font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:#a78bfa; letter-spacing:.1em; text-transform:uppercase; margin-bottom:10px; }
+    .domain-card { background:#1a2438; border:1px solid #1e293b; border-radius:12px; padding:24px; transition:all .25s; }
+    .domain-card:hover { transform:translateY(-3px); box-shadow:0 12px 32px rgba(0,0,0,.3); }
+    .block-card { background:#0f172a; border:1px solid #1e293b; border-radius:10px; padding:20px; }
+    .combo-card { background:#1a2438; border:1px solid #334155; border-radius:12px; padding:28px; border-left:3px solid #a78bfa; }
+    nav a { transition:color .2s; } nav a:hover { color:#a78bfa !important; }
+    .btn-p { display:inline-flex; align-items:center; gap:8px; padding:13px 30px; background:#a78bfa; color:#080c14; border-radius:8px; font-weight:700; font-size:.95rem; text-decoration:none; transition:all .2s; }
+    .btn-p:hover { background:#c4b5fd; transform:translateY(-1px); }
+    .btn-g { display:inline-flex; align-items:center; gap:8px; padding:13px 30px; background:transparent; color:#f1f5f9; border:1px solid #334155; border-radius:8px; font-weight:600; font-size:.95rem; text-decoration:none; transition:all .2s; }
+    .btn-g:hover { border-color:#a78bfa; color:#a78bfa; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const GH = () => <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>;
+
+    const Nav = () => (
+      <nav style={{background:'rgba(8,12,20,.93)',backdropFilter:'blur(16px)',borderBottom:'1px solid #1e293b',position:'sticky',top:0,zIndex:50}}>
+        <div style={{maxWidth:'1200px',margin:'0 auto',padding:'0 24px',display:'flex',alignItems:'center',justifyContent:'space-between',height:'60px'}}>
+          <a href="index.html" style={{fontWeight:700,fontSize:'1.1rem',color:'#f1f5f9',textDecoration:'none'}}><span style={{color:'#22d3ee'}}>Faker</span>UI</a>
+          <div style={{display:'flex',gap:'24px',alignItems:'center',fontSize:'.875rem'}}>
+            <a href="engineering.html" style={{color:'#94a3b8',textDecoration:'none'}}>Engineering</a>
+            <a href="product.html" style={{color:'#94a3b8',textDecoration:'none'}}>Product</a>
+            <a href="capability.html" style={{color:'#a78bfa',textDecoration:'none',fontWeight:600}}>Capability</a>
+            <a href="executive.html" style={{color:'#94a3b8',textDecoration:'none'}}>Executive</a>
+            <a href="https://github.com/arvind3/fakerUI" target="_blank" style={{color:'#22d3ee',textDecoration:'none',fontFamily:'JetBrains Mono',fontSize:'.78rem',border:'1px solid rgba(34,211,238,.3)',padding:'5px 12px',borderRadius:'6px',display:'flex',alignItems:'center',gap:'6px'}}><GH /> GitHub</a>
+          </div>
+        </div>
+      </nav>
+    );
+
+    const Hero = () => (
+      <section className="hero-bg" style={{padding:'88px 24px 72px',textAlign:'center'}}>
+        <div style={{maxWidth:'780px',margin:'0 auto'}}>
+          <div className="fade-in" style={{marginBottom:'18px'}}><span className="tag" style={{background:'rgba(167,139,250,.1)',color:'#a78bfa',border:'1px solid rgba(167,139,250,.25)'}}>Capability Perspective</span></div>
+          <h1 className="fade-in-1" style={{fontSize:'clamp(2rem,5vw,3.2rem)',fontWeight:700,lineHeight:1.15,letterSpacing:'-.03em',marginBottom:'20px'}}>
+            FakerUI is not just a data generator.<br/>
+            <span className="gradient-text">It is a synthetic reality engine.</span>
+          </h1>
+          <p className="fade-in-2" style={{fontSize:'1.1rem',color:'#94a3b8',lineHeight:1.75,maxWidth:'620px',margin:'0 auto 32px'}}>
+            Any domain that depends on realistic data — QA, product design, machine learning, analytics,
+            education, sales — can be supercharged by a browser-native Faker runtime.
+            The capability is the same; only the application changes.
+          </p>
+          <div className="fade-in-3" style={{display:'flex',gap:'12px',justifyContent:'center',flexWrap:'wrap'}}>
+            <a href="https://arvind3.github.io/fakerUI/" target="_blank" className="btn-p">See it live ↗</a>
+            <a href="https://github.com/arvind3/fakerUI" target="_blank" className="btn-g"><GH /> GitHub</a>
+          </div>
+        </div>
+      </section>
+    );
+
+    const CapabilityMap = () => {
+      const nodes = [
+        {label:'QA Testing',x:50,y:0},
+        {label:'Product Design',x:195,y:60},
+        {label:'ML / AI Training',x:195,y:185},
+        {label:'Business Analytics',x:50,y:245},
+        {label:'Education',x:-95,y:185},
+        {label:'Sales Demo',x:-95,y:60},
+      ];
+      return (
+        <section style={{padding:'0 24px 64px',maxWidth:'1100px',margin:'0 auto'}}>
+          <p className="section-label">Core Capability Map</p>
+          <h2 style={{fontSize:'1.7rem',fontWeight:700,marginBottom:'12px'}}>One engine. Six domains.</h2>
+          <p style={{color:'#94a3b8',marginBottom:'50px',lineHeight:1.7,maxWidth:'540px',fontSize:'0.93rem'}}>
+            FakerUI's browser-native Python runtime is not domain-specific. It is a general-purpose
+            synthetic data capability that maps to any workflow requiring realistic, configurable, reproducible datasets.
+          </p>
+          <div style={{position:'relative',height:'340px',maxWidth:'440px',margin:'0 auto 20px'}}>
+            <div style={{position:'absolute',top:'50%',left:'50%',transform:'translate(-50%,-50%)',width:'130px',height:'130px',borderRadius:'50%',background:'linear-gradient(135deg,#a78bfa,#22d3ee)',display:'flex',alignItems:'center',justifyContent:'center',textAlign:'center',fontWeight:700,fontSize:'0.72rem',padding:'14px',color:'#080c14',zIndex:2,boxShadow:'0 0 50px rgba(167,139,250,.25)'}}>
+              Browser-Native Synthetic Data
+            </div>
+            <div style={{position:'absolute',top:'50%',left:'50%',transform:'translate(-50%,-50%)',width:'260px',height:'260px',borderRadius:'50%',border:'1px dashed rgba(167,139,250,.15)',zIndex:0}}></div>
+            {nodes.map((n,i) => (
+              <div key={i} style={{position:'absolute',top:`calc(50% + ${n.y - 14}px)`,left:`calc(50% + ${n.x - 60}px)`,background:'#1a2438',border:'1px solid rgba(167,139,250,.3)',padding:'7px 14px',borderRadius:'20px',fontSize:'0.75rem',fontWeight:600,color:'#a78bfa',whiteSpace:'nowrap',zIndex:3}}>
+                {n.label}
+              </div>
+            ))}
+          </div>
+        </section>
+      );
+    };
+
+    const CrossDomain = () => {
+      const domains = [
+        {icon:'🧪',name:'QA & Test Engineering',accent:'#22d3ee',problem:'Test suites need realistic seed data matching production data shapes — but production data cannot be used in non-prod environments.',how:'FakerUI generates version-pinned, locale-correct, seed-reproducible data for any schema. QA engineers export CSV directly into CI fixtures without writing a Python script.',impact:'Seed data generation time: hours → minutes*'},
+        {icon:'🎨',name:'Product Design & Prototyping',accent:'#34d399',problem:'UI prototypes with placeholder text look unfinished in stakeholder reviews and break immersion in user research sessions.',how:'The Schema Builder exports realistic multi-field datasets — names, emails, job titles, addresses, timestamps — directly into design tools and Figma variable tables.*',impact:'Prototype realism improved without engineering support*'},
+        {icon:'🤖',name:'ML / AI Training Data',accent:'#a78bfa',problem:'Early ML models require structured synthetic data for training, pipeline validation, and benchmarking before production data is available.',how:'FakerUI generates structured JSON with configurable distributions, locale variation, and seed control — ready for direct ingestion into training pipelines.*',impact:'Privacy-safe synthetic datasets in seconds, not days*'},
+        {icon:'📊',name:'Business Analytics & BI',accent:'#fbbf24',problem:'Analytics dashboards need to be validated against realistic data volumes and distributions before connecting to production sources.',how:'Generate thousands of domain-appropriate records — sales transactions, user events, inventory counts — to stress-test dashboards and validate KPI calculations.*',impact:'BI pipeline validation decoupled from production data access*'},
+        {icon:'📚',name:'Education & Training',accent:'#f87171',problem:'Teaching SQL, data engineering, or programming requires realistic datasets. Handcrafted teaching datasets are small, repetitive, and boring.',how:'Instructors generate domain-appropriate datasets of any size — patient records, transaction logs, user tables — in seconds without any coding.*',impact:'Engaging, realistic classroom datasets with zero manual effort*'},
+        {icon:'💼',name:'Sales Demos & PoC',accent:'#38bdf8',problem:"Convincing demos require data that looks like the prospect's actual data. Generic demo data breaks immersion and reduces deal confidence.",how:'Configure FakerUI with the prospect locale, industry-appropriate providers, and schema shape to generate tailored demo data before each call — in minutes.*',impact:'Per-prospect demo data without engineering involvement*'},
+      ];
+      return (
+        <section style={{padding:'0 24px 64px',maxWidth:'1200px',margin:'0 auto'}}>
+          <p className="section-label">Cross-Domain Applications</p>
+          <h2 style={{fontSize:'1.7rem',fontWeight:700,marginBottom:'12px'}}>Where FakerUI creates value</h2>
+          <p style={{color:'#94a3b8',marginBottom:'40px',lineHeight:1.7,maxWidth:'560px',fontSize:'0.93rem'}}>Every domain that depends on realistic data can leverage this synthetic data capability differently.</p>
+          <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(340px,1fr))',gap:'20px'}}>
+            {domains.map((d,i) => (
+              <div key={i} className="domain-card" style={{borderTop:`3px solid ${d.accent}`}}>
+                <div style={{display:'flex',alignItems:'center',gap:'12px',marginBottom:'18px'}}>
+                  <span style={{fontSize:'1.7rem'}}>{d.icon}</span>
+                  <span style={{fontWeight:700,fontSize:'0.95rem',color:d.accent}}>{d.name}</span>
+                </div>
+                <div style={{marginBottom:'12px'}}>
+                  <p style={{fontSize:'0.68rem',fontFamily:'JetBrains Mono',color:'#475569',marginBottom:'5px',textTransform:'uppercase',letterSpacing:'.06em'}}>The problem</p>
+                  <p style={{fontSize:'0.84rem',color:'#94a3b8',lineHeight:1.6}}>{d.problem}</p>
+                </div>
+                <div style={{marginBottom:'12px'}}>
+                  <p style={{fontSize:'0.68rem',fontFamily:'JetBrains Mono',color:d.accent,marginBottom:'5px',textTransform:'uppercase',letterSpacing:'.06em'}}>How FakerUI applies</p>
+                  <p style={{fontSize:'0.84rem',color:'#f1f5f9',lineHeight:1.6}}>{d.how}</p>
+                </div>
+                <div style={{background:`${d.accent}12`,border:`1px solid ${d.accent}25`,borderRadius:'8px',padding:'8px 12px'}}>
+                  <p style={{fontSize:'0.78rem',color:d.accent,fontFamily:'JetBrains Mono'}}>{d.impact}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      );
+    };
+
+    const BuildingBlocks = () => (
+      <section style={{padding:'0 24px 64px',maxWidth:'1100px',margin:'0 auto'}}>
+        <p className="section-label">Capability Building Blocks</p>
+        <h2 style={{fontSize:'1.7rem',fontWeight:700,marginBottom:'12px'}}>What makes it reusable and extensible</h2>
+        <p style={{color:'#94a3b8',marginBottom:'40px',lineHeight:1.7,maxWidth:'560px',fontSize:'0.93rem'}}>FakerUI is built from composable layers. Each block is independently valuable — together they create a platform extensible for any domain.</p>
+        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(220px,1fr))',gap:'16px'}}>
+          {[
+            {name:'Pyodide Runtime Engine',d:'CPython compiled to WASM. Runs genuine Python in any browser. Not limited to Faker — any WASM-compatible Python library can be loaded.',accent:'#22d3ee',icon:'⚙️'},
+            {name:'Faker Provider Catalog',d:'300+ methods across person, address, internet, finance, date, text, colour, and more — introspected at build time and fully searchable.',accent:'#34d399',icon:'📖'},
+            {name:'Schema Composer',d:'Multi-field dataset definition layer. Declarative schema → generated table. Extensible to support conditional fields and relational constraints.*',accent:'#a78bfa',icon:'📐'},
+            {name:'Plugin Pack System',d:"Manifest-driven extension system for domain-specific Faker providers. Add your vertical's data types without touching core code.",accent:'#fbbf24',icon:'🧩'},
+            {name:'Export Adapter Layer',d:'Pluggable output format layer (JSON, CSV, clipboard). New formats (Parquet, SQL INSERT, YAML) can be added as export adapters.*',accent:'#f87171',icon:'📤'},
+            {name:'Service Worker Cache',d:'Caches Pyodide runtime, wheels, and catalog after first load. Enables offline operation and near-instant subsequent loads.',accent:'#38bdf8',icon:'⚡'},
+          ].map((b,i) => (
+            <div key={i} className="block-card">
+              <div style={{display:'flex',alignItems:'center',gap:'10px',marginBottom:'12px'}}>
+                <span style={{fontSize:'1.4rem'}}>{b.icon}</span>
+                <span style={{fontWeight:700,fontSize:'0.88rem',color:b.accent}}>{b.name}</span>
+              </div>
+              <p style={{fontSize:'0.82rem',color:'#94a3b8',lineHeight:1.6}}>{b.d}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+
+    const CombinationPlays = () => (
+      <section style={{padding:'0 24px 64px',maxWidth:'1100px',margin:'0 auto'}}>
+        <p className="section-label">Combination Plays</p>
+        <h2 style={{fontSize:'1.7rem',fontWeight:700,marginBottom:'12px'}}>Compound value when paired with other tools</h2>
+        <p style={{color:'#94a3b8',marginBottom:'40px',lineHeight:1.7,maxWidth:'560px',fontSize:'0.93rem'}}>FakerUI's CSV/JSON output makes it a natural upstream data source for dozens of adjacent tools.</p>
+        <div style={{display:'flex',flexDirection:'column',gap:'20px'}}>
+          {[
+            {combo:'FakerUI + Playwright',tagline:'Seed → Test → Repeat',d:'Generate a seed CSV with a fixed seed. Import as Playwright test fixtures. Re-run FakerUI with the same seed to regenerate identical data after schema changes. Result: deterministic, realistic E2E tests with zero hardcoded fake data in the codebase.*',tools:['FakerUI (seed=42)','CSV export','Playwright fixtures','CI/CD pipeline'],accent:'#22d3ee'},
+            {combo:'FakerUI + dbt / Data Warehouse',tagline:'Synthetic → Pipeline → Validate',d:'Generate a synthetic dataset matching a production schema shape. Load into a staging warehouse with a dbt seed command. Run dbt models against synthetic data to validate SQL transformations before touching production data.*',tools:['FakerUI (schema match)','JSON export','dbt seed','Staging warehouse'],accent:'#34d399'},
+            {combo:'FakerUI + Figma / Storybook',tagline:'Real data. Real components.',d:"Export a 50-row CSV of user records or product listings from FakerUI's Schema Builder. Import as Figma variables or Storybook fixtures. Design reviews with realistic data radically improve stakeholder feedback quality.*",tools:['FakerUI (Schema Builder)','CSV export','Figma Variables','Storybook fixtures'],accent:'#a78bfa'},
+          ].map((c,i) => (
+            <div key={i} className="combo-card" style={{borderLeftColor:c.accent}}>
+              <div style={{display:'flex',alignItems:'flex-start',gap:'20px',flexWrap:'wrap'}}>
+                <div style={{flex:'1',minWidth:'280px'}}>
+                  <h3 style={{fontWeight:700,fontSize:'1.05rem',color:'#f1f5f9',marginBottom:'6px'}}>{c.combo}</h3>
+                  <p style={{fontSize:'0.75rem',color:c.accent,fontFamily:'JetBrains Mono',marginBottom:'12px'}}>{c.tagline}</p>
+                  <p style={{fontSize:'0.87rem',color:'#94a3b8',lineHeight:1.68}}>{c.d}</p>
+                </div>
+                <div style={{flex:'0 0 auto',minWidth:'180px'}}>
+                  <p style={{fontSize:'0.65rem',fontFamily:'JetBrains Mono',color:'#475569',marginBottom:'8px',textTransform:'uppercase',letterSpacing:'.06em'}}>Stack</p>
+                  {c.tools.map((t,j) => (
+                    <div key={j} style={{display:'flex',alignItems:'center',gap:'6px',marginBottom:'6px'}}>
+                      <span style={{color:j === c.tools.length-1 ? '#34d399' : c.accent,fontSize:'0.75rem'}}>{j === c.tools.length-1 ? '✓' : '→'}</span>
+                      <span style={{fontSize:'0.78rem',color:'#94a3b8',fontFamily:'JetBrains Mono'}}>{t}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+
+    const EmergingOpp = () => (
+      <section style={{padding:'0 24px 64px',maxWidth:'860px',margin:'0 auto'}}>
+        <p className="section-label">Emerging Opportunity</p>
+        <h2 style={{fontSize:'1.7rem',fontWeight:700,marginBottom:'20px'}}>Where this capability is headed</h2>
+        <div style={{background:'linear-gradient(135deg,rgba(167,139,250,.07),rgba(34,211,238,.05))',border:'1px solid rgba(167,139,250,.2)',borderRadius:'16px',padding:'40px'}}>
+          <p style={{color:'#94a3b8',lineHeight:1.8,fontSize:'0.97rem',marginBottom:'18px'}}>
+            As AI and ML adoption accelerates, synthetic data generation is shifting from a developer convenience
+            to critical infrastructure. Regulatory pressure — GDPR, HIPAA, CCPA — is making it increasingly
+            difficult to use real data in development, testing, and model training environments.
+          </p>
+          <p style={{color:'#94a3b8',lineHeight:1.8,fontSize:'0.97rem',marginBottom:'18px'}}>
+            FakerUI is uniquely positioned in this landscape: it runs entirely in-browser, requires no data to
+            leave the user's machine, and is free of the infrastructure overhead that characterises enterprise
+            synthetic data platforms. As WASM matures — with better performance, larger package support, and
+            wider GPU access — the gap between in-browser and server-side Python continues to close.
+          </p>
+          <p style={{color:'#f1f5f9',lineHeight:1.8,fontSize:'0.97rem',fontWeight:600}}>
+            The next evolution could include: AI-guided schema inference from natural language, LLM-generated
+            contextually coherent text fields, streaming generation for very large datasets, and domain-specific
+            plugin packs maintained by vertical communities.* The platform foundation is already in place.*
+          </p>
+        </div>
+      </section>
+    );
+
+    const Partnership = () => (
+      <section style={{padding:'0 24px 88px',textAlign:'center'}}>
+        <div style={{maxWidth:'640px',margin:'0 auto',background:'#0f172a',border:'1px solid rgba(167,139,250,.2)',borderRadius:'20px',padding:'56px 40px'}}>
+          <h2 style={{fontSize:'1.9rem',fontWeight:700,marginBottom:'14px'}}>Let's extend the platform together</h2>
+          <p style={{color:'#94a3b8',fontSize:'1rem',lineHeight:1.72,marginBottom:'32px'}}>
+            If you represent a domain that needs realistic synthetic data — healthcare, fintech, legal, logistics —
+            or build tools that could integrate with FakerUI's output, we'd welcome a conversation about
+            plugin packs, API integrations, or joint use cases.*
+          </p>
+          <div style={{display:'flex',gap:'14px',justifyContent:'center',flexWrap:'wrap'}}>
+            <a href="https://github.com/arvind3/fakerUI/issues" target="_blank" className="btn-p">Open a Discussion ↗</a>
+            <a href="https://github.com/arvind3/fakerUI" target="_blank" className="btn-g"><GH /> View on GitHub</a>
+          </div>
+        </div>
+      </section>
+    );
+
+    const Footer = () => (
+      <footer style={{borderTop:'1px solid #1e293b',padding:'32px 24px',background:'#080c14'}}>
+        <div style={{maxWidth:'1200px',margin:'0 auto',display:'flex',alignItems:'center',justifyContent:'space-between',flexWrap:'wrap',gap:'16px'}}>
+          <div>
+            <span style={{fontWeight:700,fontSize:'1rem'}}><span style={{color:'#22d3ee'}}>Faker</span>UI · Capability</span>
+            <p style={{fontSize:'0.72rem',color:'#475569',fontFamily:'JetBrains Mono',marginTop:'5px'}}>* = inferred content</p>
+          </div>
+          <div style={{display:'flex',gap:'16px',alignItems:'center'}}>
+            <a href="index.html" style={{color:'#94a3b8',textDecoration:'none',fontSize:'0.85rem'}}>← Hub</a>
+            <a href="https://github.com/arvind3/fakerUI" target="_blank" style={{color:'#94a3b8',textDecoration:'none',fontSize:'0.85rem',display:'flex',alignItems:'center',gap:'6px',border:'1px solid #334155',padding:'7px 14px',borderRadius:'8px'}}><GH /> GitHub</a>
+          </div>
+        </div>
+      </footer>
+    );
+
+    const App = () => <div><Nav /><Hero /><CapabilityMap /><CrossDomain /><BuildingBlocks /><CombinationPlays /><EmergingOpp /><Partnership /><Footer /></div>;
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>
