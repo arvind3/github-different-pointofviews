@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Retail Analytics · Engineering</title>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root{--ink:#0a0a14;--surface:#12121f;--card:#1a1a2e;--border:#2a2a45;--primary:#6366f1;--primary-light:#818cf8;--accent:#f59e0b;--text:#e2e8f0;--muted:#94a3b8;--green:#10b981;}
+    *{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+    body{background:var(--ink);color:var(--text);font-family:"Plus Jakarta Sans",sans-serif;}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+    .fu{animation:fadeUp .6s ease both;}.d1{animation-delay:.1s}.d2{animation-delay:.2s}.d3{animation-delay:.3s}
+    code,pre{font-family:"JetBrains Mono",monospace;}
+    .code-block{background:#06060f;border:1px solid var(--border);border-radius:10px;padding:20px 22px;overflow-x:auto;font-size:.82rem;line-height:1.75;color:#c4cfe8;}
+    .section-label{font-family:"JetBrains Mono",monospace;font-size:.72rem;color:var(--primary-light);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
+    .gradient-text{background:linear-gradient(135deg,#818cf8,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .arch-box{border:1px solid var(--border);border-radius:10px;padding:14px 16px;background:var(--card);font-size:.82rem;text-align:center;}
+    .decision-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px;border-left:3px solid var(--primary);transition:all .2s;}
+    .decision-card:hover{border-left-color:var(--accent);box-shadow:0 8px 28px rgba(0,0,0,.4);}
+    nav a{transition:color .2s;}a{text-decoration:none;}
+  </style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const GH=()=>(<svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>);
+const Nav=()=>(<nav style={{background:"rgba(10,10,20,.95)",backdropFilter:"blur(16px)",borderBottom:"1px solid var(--border)",position:"sticky",top:0,zIndex:50}}><div style={{maxWidth:"1100px",margin:"0 auto",padding:"0 24px",display:"flex",alignItems:"center",justifyContent:"space-between",height:"60px"}}><a href="./index.html" style={{fontWeight:700,fontSize:"1rem",color:"var(--text)"}}><span style={{color:"var(--primary-light)"}}>Retail</span> Analytics</a><div style={{display:"flex",gap:"20px",alignItems:"center",fontSize:".85rem"}}><a href="./engineering.html" style={{color:"var(--primary-light)",fontWeight:600}}>Engineering</a><a href="./product.html" style={{color:"var(--muted)"}}>Product</a><a href="./capability.html" style={{color:"var(--muted)"}}>Capability</a><a href="./executive.html" style={{color:"var(--muted)"}}>Executive</a><a href="https://github.com/arvind3/retail_analytics" target="_blank" style={{color:"var(--muted)",border:"1px solid var(--border)",padding:"5px 12px",borderRadius:"6px",display:"flex",alignItems:"center",gap:"6px",fontFamily:"JetBrains Mono",fontSize:".78rem"}}><GH/> GitHub</a></div></div></nav>);
+const Hero=()=>(<section style={{padding:"80px 24px 64px",textAlign:"center",background:"var(--ink)",borderBottom:"1px solid var(--border)",backgroundImage:"linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px)",backgroundSize:"44px 44px"}}><div style={{maxWidth:"780px",margin:"0 auto",position:"relative"}}><div style={{position:"absolute",inset:0,background:"radial-gradient(ellipse 80% 70% at 50% 0%,rgba(99,102,241,.14),transparent)",pointerEvents:"none"}}/><div className="fu" style={{marginBottom:"16px"}}><span style={{background:"rgba(99,102,241,.12)",border:"1px solid rgba(99,102,241,.28)",color:"var(--primary-light)",borderRadius:"20px",padding:"4px 14px",fontSize:".75rem",fontFamily:"JetBrains Mono",fontWeight:500}}>Engineering Perspective</span></div><h1 className="fu d1" style={{fontSize:"clamp(2rem,5vw,3.2rem)",fontWeight:800,lineHeight:1.15,letterSpacing:"-.03em",marginBottom:"18px"}}>Analytical SQL in every browser.<br/><span className="gradient-text">Without a single server.</span></h1><p className="fu d2" style={{fontSize:"1.05rem",color:"var(--muted)",lineHeight:1.8,maxWidth:"600px",margin:"0 auto 28px"}}>Retail Analytics fuses a three-layer architecture — Parquet data, GitHub Pages delivery, and DuckDB-WASM runtime — to execute sub-second SQL queries entirely on the client, with zero backend infrastructure.</p><div className="fu d3" style={{display:"flex",gap:"12px",justifyContent:"center",flexWrap:"wrap"}}><a href="https://github.com/arvind3/retail_analytics" target="_blank" style={{display:"inline-flex",alignItems:"center",gap:"8px",padding:"11px 24px",background:"var(--primary)",color:"white",borderRadius:"8px",fontWeight:700,fontSize:".9rem"}}><GH/> View Source</a><a href="https://arvind3.github.io/retail_analytics/#/" target="_blank" style={{display:"inline-flex",alignItems:"center",gap:"8px",padding:"11px 24px",background:"var(--card)",color:"var(--text)",border:"1px solid var(--border)",borderRadius:"8px",fontWeight:600,fontSize:".9rem"}}>Live Demo ↗</a></div></div></section>);
+const Architecture=()=>(<section style={{padding:"64px 24px",maxWidth:"1100px",margin:"0 auto"}}><p className="section-label">Architecture Overview</p><h2 style={{fontSize:"1.75rem",fontWeight:700,marginBottom:"10px"}}>Three-Layer System Design</h2><p style={{color:"var(--muted)",marginBottom:"40px",maxWidth:"620px",lineHeight:1.75}}>A deliberate stack that eliminates infrastructure without sacrificing analytical power. Each layer has one responsibility and a clean interface to the next.</p>
+<div style={{background:"var(--surface)",border:"1px solid var(--border)",borderRadius:"14px",padding:"24px",marginBottom:"10px"}}><p style={{fontFamily:"JetBrains Mono",fontSize:".72rem",color:"var(--muted)",letterSpacing:".1em",textTransform:"uppercase",marginBottom:"16px"}}>① DATA LAYER — Parquet on GitHub</p><div style={{display:"flex",alignItems:"center",gap:"8px",flexWrap:"wrap"}}>{[{l:"completejourney",s:"Public retail dataset",c:"var(--muted)",plain:false},{l:"→",plain:true},{l:"Python / R scripts",s:"prepare_data.py · prepare_data.R",c:"var(--accent)",plain:false},{l:"→",plain:true},{l:"Parquet files",s:"data/parquet/ columnar",c:"var(--green)",plain:false},{l:"→",plain:true},{l:"metadata.json",s:"Schema manifest 5KB",c:"var(--primary-light)",plain:false}].map((b,i)=>b.plain?(<div key={i} style={{color:"var(--muted)",fontSize:"1.3rem"}}>→</div>):(<div key={i} className="arch-box" style={{flex:1,minWidth:"130px"}}><div style={{color:b.c,fontFamily:"JetBrains Mono",fontSize:".72rem",marginBottom:"5px"}}>●</div><div style={{fontWeight:600,fontSize:".85rem",marginBottom:"3px"}}>{b.l}</div><div style={{color:"var(--muted)",fontSize:".73rem"}}>{b.s}</div></div>))}</div></div>
+<div style={{textAlign:"center",fontSize:"1.4rem",color:"var(--border)",margin:"4px 0"}}>↓</div>
+<div style={{background:"var(--surface)",border:"1px solid var(--border)",borderRadius:"14px",padding:"24px",marginBottom:"10px"}}><p style={{fontFamily:"JetBrains Mono",fontSize:".72rem",color:"var(--muted)",letterSpacing:".1em",textTransform:"uppercase",marginBottom:"16px"}}>② DELIVERY LAYER — GitHub Pages + CI/CD</p><div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(180px,1fr))",gap:"10px"}}>{[{l:"GitHub Actions",s:"Build · test · deploy on push",c:"var(--primary-light)"},{l:"Vite Build",s:"React bundle → /dist optimised",c:"var(--accent)"},{l:"GitHub Pages",s:"Static hosting · CDN · HTTPS",c:"var(--green)"},{l:"Playwright E2E",s:"Verify charts · SQL · load",c:"#ec4899"}].map((b,i)=>(<div key={i} className="arch-box"><div style={{color:b.c,fontFamily:"JetBrains Mono",fontSize:".72rem",marginBottom:"5px"}}>◆</div><div style={{fontWeight:600,fontSize:".85rem",marginBottom:"4px"}}>{b.l}</div><div style={{color:"var(--muted)",fontSize:".73rem",lineHeight:1.5}}>{b.s}</div></div>))}</div></div>
+<div style={{textAlign:"center",fontSize:"1.4rem",color:"var(--border)",margin:"4px 0"}}>↓</div>
+<div style={{background:"var(--surface)",border:"1px solid var(--border)",borderRadius:"14px",padding:"24px"}}><p style={{fontFamily:"JetBrains Mono",fontSize:".72rem",color:"var(--muted)",letterSpacing:".1em",textTransform:"uppercase",marginBottom:"16px"}}>③ RUNTIME LAYER — Browser-Native Analytics</p><div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(180px,1fr))",gap:"10px"}}>{[{l:"DuckDB-WASM 1.29.0",s:"In-browser SQL engine",c:"var(--primary-light)"},{l:"React Router 6",s:"Hash-based SPA navigation",c:"#61dafb"},{l:"ECharts 5.5.1",s:"Charts from query results",c:"var(--accent)"},{l:"IndexedDB",s:"Client-side persistence",c:"var(--green)"},{l:"TypeScript",s:"Strict types throughout",c:"#3b82f6"},{l:"Tailwind CSS",s:"Utility-first responsive",c:"#06b6d4"}].map((b,i)=>(<div key={i} className="arch-box"><div style={{color:b.c,fontFamily:"JetBrains Mono",fontSize:".72rem",marginBottom:"5px"}}>■</div><div style={{fontWeight:600,fontSize:".85rem",marginBottom:"4px"}}>{b.l}</div><div style={{color:"var(--muted)",fontSize:".73rem",lineHeight:1.5}}>{b.s}</div></div>))}</div></div></section>);
+const TechStack=()=>{const stack=[{n:"React 18.3.1",w:"Concurrent rendering; component model maps well to dashboard panels and lazy query results.",c:"#61dafb"},{n:"TypeScript",w:"Strict typing prevents category errors between SQL result shapes and ECharts option types.",c:"#3b82f6"},{n:"DuckDB-WASM 1.29.0",w:"The core differentiator — full OLAP SQL in the browser. Columnar engine, vectorised execution, Parquet-native.",c:"var(--primary-light)"},{n:"ECharts 5.5.1",w:"Rich chart types with minimal bundle overhead vs. D3.",c:"var(--accent)"},{n:"Vite",w:"Sub-second HMR for development; optimised production builds with tree-shaking.",c:"#fbbf24"},{n:"Tailwind CSS",w:"Utility classes enable rapid responsive layout without a custom CSS pipeline.",c:"#06b6d4"},{n:"React Router 6 (hash mode)",w:"Hash-based routing works on GitHub Pages without server rewrite rules.",c:"#ec4899"},{n:"Playwright",w:"End-to-end coverage: dashboard load, chart render, SQL execution, error states.",c:"#34d399"},{n:"Python + R",w:"Data preparation scripts (pandas, pyarrow, pyreadr) convert the raw dataset to Parquet.",c:"#f97316"},{n:"Vitest",w:"Unit-tests for utility functions run fast in jsdom without a full browser.",c:"var(--green)"}];return(<section style={{padding:"0 24px 64px",maxWidth:"1100px",margin:"0 auto"}}><p className="section-label">Tech Stack</p><h2 style={{fontSize:"1.75rem",fontWeight:700,marginBottom:"10px"}}>Every dependency earns its weight</h2><p style={{color:"var(--muted)",marginBottom:"36px",maxWidth:"560px",lineHeight:1.75}}>The stack was chosen for one goal: maximum analytical capability with zero infrastructure cost.</p><div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(290px,1fr))",gap:"12px"}}>{stack.map((s,i)=>(<div key={i} style={{background:"var(--card)",border:"1px solid var(--border)",borderRadius:"10px",padding:"16px 18px",display:"flex",flexDirection:"column",gap:"6px",transition:"border-color .2s"}} onMouseEnter={e=>e.currentTarget.style.borderColor="rgba(99,102,241,.5)"} onMouseLeave={e=>e.currentTarget.style.borderColor="var(--border)"}><span style={{color:s.c,fontFamily:"JetBrains Mono",fontWeight:600,fontSize:".88rem"}}>{s.n}</span><span style={{color:"var(--muted)",fontSize:".82rem",lineHeight:1.6}}>{s.w}</span></div>))}</div></section>);};
+const HowItWorks=()=>{const steps=[{n:"01",t:"User opens the platform URL",d:"The browser fetches static HTML/JS/CSS assets from GitHub Pages. No server logic executes — pre-built files in /dist, deployed by GitHub Actions on every push to main.",code:`// vite.config.ts
+export default defineConfig({
+  plugins: [react()],
+  base: './',  // relative paths for GitHub Pages
+  build: { outDir: 'dist', sourcemap: true },
+})`},{n:"02",t:"DuckDB-WASM initialises in the browser",d:"On first render, the app bootstraps DuckDB-WASM — a full OLAP SQL engine compiled to WebAssembly. Parquet files are registered as virtual tables. This happens once per session.",code:`// representative pattern
+const db = await duckdb.createDuckDb();
+await db.open();
+const conn = await db.connect();
+await conn.query(\`
+  INSTALL parquet; LOAD parquet;
+  CREATE VIEW transactions AS
+  SELECT * FROM read_parquet('data/parquet/transactions.parquet');
+\`);`},{n:"03",t:"React Router navigates to a dashboard page",d:"Three routes: ExecutiveDashboard (/), Insights (/insights), SqlStudio (/sql-studio). Hash-based routing means no server rewrite rules are needed on GitHub Pages.",code:`// src/App.tsx
+const App = () => (
+  <HashRouter>
+    <Layout>
+      <Routes>
+        <Route path="/"           element={<ExecutiveDashboard />} />
+        <Route path="/insights"   element={<Insights />} />
+        <Route path="/sql-studio" element={<SqlStudio />} />
+      </Routes>
+    </Layout>
+  </HashRouter>
+);`},{n:"04",t:"Dashboard fires SQL queries against DuckDB",d:"Each panel issues SQL to the in-process DuckDB instance. Queries run against columnar Parquet data with vectorised execution — no network call, no latency after init.",code:`const result = await conn.query(\`
+  SELECT
+    week_no,
+    SUM(sales_value)          AS total_sales,
+    COUNT(DISTINCT household_key) AS unique_households,
+    AVG(basket_value)         AS avg_basket
+  FROM transactions
+  GROUP BY week_no ORDER BY week_no
+\`);`},{n:"05",t:"ECharts renders results client-side",d:"Query results (Arrow-format RecordBatches) are transformed into ECharts option objects. Charts render instantly — no serialisation to a backend, no JSON API.",code:`// src/components/Chart.tsx
+const Chart = ({ data, type }) => {
+  const option = buildChartOption(data, type);
+  return <ReactECharts option={option} style={{ height: 320 }} />;
+};`}];return(<section style={{padding:"0 24px 64px",maxWidth:"1100px",margin:"0 auto"}}><p className="section-label">How It Works</p><h2 style={{fontSize:"1.75rem",fontWeight:700,marginBottom:"40px"}}>Step-by-step technical walkthrough</h2><div style={{display:"flex",flexDirection:"column",gap:"32px"}}>{steps.map((s,i)=>(<div key={i} style={{display:"grid",gridTemplateColumns:"auto 1fr",gap:"24px",alignItems:"flex-start"}}><div style={{fontFamily:"JetBrains Mono",fontSize:"2.2rem",fontWeight:800,color:"var(--border)",lineHeight:1,paddingTop:"4px"}}>{s.n}</div><div><h3 style={{fontSize:"1.05rem",fontWeight:700,marginBottom:"8px",color:"var(--text)"}}>{s.t}</h3><p style={{color:"var(--muted)",fontSize:".88rem",lineHeight:1.75,marginBottom:"14px"}}>{s.d}</p><pre className="code-block"><code>{s.code}</code></pre></div></div>))}</div></section>);};
+const DesignDecisions=()=>{const decisions=[{t:"DuckDB-WASM over a query API",a:"var(--primary-light)",tr:"In-browser SQL engine vs. REST endpoint to a managed database.",r:"Eliminates all infrastructure: no API server, no database instance, no authentication layer. Data stays in the browser — a privacy win for retail datasets. Tradeoff: first-load init adds ~1–2 seconds and browser memory caps query scale.*"},{t:"Parquet over CSV or JSON",a:"var(--green)",tr:"Columnar binary format vs. row-oriented text formats.",r:"Parquet is DuckDB's native format — predicate pushdown and columnar projection mean only relevant columns are decoded. File sizes 3–10x smaller than CSV. Tradeoff: requires Python/R preprocessing."},{t:"Hash-based routing (#/) for GitHub Pages",a:"var(--accent)",tr:"HashRouter vs. BrowserRouter (history API).",r:"GitHub Pages serves a single index.html. BrowserRouter requires server-side URL rewriting. HashRouter works with no configuration — navigation state lives in the URL fragment."},{t:"Static deployment via GitHub Actions",a:"#ec4899",tr:"CI/CD automation vs. manual deployment.",r:"Every push to main triggers build, test, and deploy. Playwright E2E tests validate the live deployment before merge. Zero-touch deployments."},{t:"IndexedDB for client-side persistence",a:"#f97316",tr:"Browser storage vs. external state management.",r:"Query history, saved SQL, and user preferences persist across sessions without a backend. idb-keyval provides a simple Promise-based API over IndexedDB."}];return(<section style={{padding:"0 24px 64px",maxWidth:"1100px",margin:"0 auto"}}><p className="section-label">Key Design Decisions</p><h2 style={{fontSize:"1.75rem",fontWeight:700,marginBottom:"10px"}}>Architectural choices and tradeoffs</h2><p style={{color:"var(--muted)",marginBottom:"36px",lineHeight:1.75,maxWidth:"560px"}}>Each decision optimised for the same North Star: zero infrastructure, maximum analytical capability.</p><div style={{display:"flex",flexDirection:"column",gap:"14px"}}>{decisions.map((d,i)=>(<div key={i} className="decision-card" style={{borderLeftColor:d.a}}><h3 style={{fontSize:"1rem",fontWeight:700,marginBottom:"6px",color:"var(--text)"}}>{d.t}</h3><p style={{fontSize:".8rem",color:d.a,fontFamily:"JetBrains Mono",marginBottom:"9px"}}>{d.tr}</p><p style={{fontSize:".88rem",color:"var(--muted)",lineHeight:1.7}}>{d.r}</p></div>))}</div></section>);};
+const GettingStarted=()=>(<section style={{padding:"0 24px 64px",maxWidth:"1100px",margin:"0 auto"}}><p className="section-label">Getting Started</p><h2 style={{fontSize:"1.75rem",fontWeight:700,marginBottom:"32px"}}>Clone, prepare data, run</h2><pre className="code-block">{`# 1. Clone the repository
+git clone https://github.com/arvind3/retail_analytics
+cd retail_analytics
+
+# 2. Prepare the Parquet dataset (Python)
+pip install pandas pyarrow pyreadr
+python scripts/prepare_data.py
+python scripts/validate_data.py   # verify data integrity
+
+# 3. Install Node dependencies
+npm install
+
+# 4. Start the development server
+npm run dev                        # http://localhost:5173
+
+# 5. Run the test suite
+npm run test                       # Vitest unit tests
+npm run e2e                        # Playwright E2E (Chromium)
+
+# 6. Build for production
+npm run build                      # outputs to /dist`}</pre></section>);
+const Footer=()=>(<footer style={{borderTop:"1px solid var(--border)",padding:"28px 24px",background:"var(--surface)"}}><div style={{maxWidth:"1100px",margin:"0 auto",display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:"12px"}}><div><span style={{fontWeight:700,fontSize:"1rem",color:"var(--text)"}}>Retail Analytics · <span style={{color:"var(--primary-light)"}}>Engineering</span></span><p style={{fontSize:".72rem",color:"var(--muted)",fontFamily:"JetBrains Mono",marginTop:"4px",opacity:.6}}>github.com/arvind3/retail_analytics · * inferred from repo analysis</p></div><div style={{display:"flex",gap:"14px",alignItems:"center",fontSize:".85rem"}}><a href="./index.html" style={{color:"var(--muted)"}}>← Hub</a><a href="./product.html" style={{color:"var(--muted)"}}>Product →</a></div></div></footer>);
+const App=()=>(<div><Nav/><Hero/><Architecture/><TechStack/><HowItWorks/><DesignDecisions/><GettingStarted/><Footer/></div>);
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+</script>
+</body>
+</html>
