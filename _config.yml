@@ -1,0 +1,13 @@
+# GitHub Pages configuration — Awareness Pages Collection
+# Disables the default Jekyll theme so our custom React/Tailwind HTML is served as-is.
+
+theme: null
+
+# Tell Jekyll to pass through all HTML files unchanged
+include:
+  - docs/
+
+# Exclude source files that shouldn't be deployed
+exclude:
+  - REPO_AWARENESS_PAGES_SKILL.md
+  - "*.md"

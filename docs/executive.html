@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FakerUI — Executive Summary</title>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg-primary:#080c14; --bg-surface:#0f172a; --bg-card:#1a2438; --accent-cyan:#22d3ee; --accent-emerald:#34d399; --accent-purple:#a78bfa; --accent-amber:#fbbf24; --text-primary:#f1f5f9; --text-secondary:#94a3b8; --text-muted:#475569; --border:#1e293b; --border-light:#334155; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--bg-primary); color:var(--text-primary); font-family:'Space Grotesk',sans-serif; }
+    @keyframes fadeInUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+    .fade-in { animation:fadeInUp .6s ease-out both; } .fade-in-1 { animation:fadeInUp .6s .1s ease-out both; } .fade-in-2 { animation:fadeInUp .6s .2s ease-out both; } .fade-in-3 { animation:fadeInUp .6s .3s ease-out both; }
+    .hero-bg { background-image: radial-gradient(ellipse 80% 55% at 50% 0%, rgba(251,191,36,0.12) 0%, transparent 60%), linear-gradient(rgba(251,191,36,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(251,191,36,0.025) 1px, transparent 1px); background-size:100% 100%, 60px 60px, 60px 60px; }
+    .gradient-text { background:linear-gradient(135deg,#fbbf24,#f87171); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .tag { font-family:'JetBrains Mono',monospace; font-size:0.7rem; padding:3px 10px; border-radius:20px; font-weight:500; }
+    .section-label { font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:#fbbf24; letter-spacing:.1em; text-transform:uppercase; margin-bottom:10px; }
+    .metric-card { background:#0f172a; border:1px solid #1e293b; border-radius:12px; padding:24px; border-left:3px solid #fbbf24; }
+    .traction-item { display:flex; align-items:flex-start; gap:14px; padding:18px 0; border-bottom:1px solid #1e293b; }
+    .traction-item:last-child { border-bottom:none; }
+    nav a { transition:color .2s; } nav a:hover { color:#fbbf24 !important; }
+    .btn-p { display:inline-flex; align-items:center; gap:8px; padding:13px 30px; background:#fbbf24; color:#080c14; border-radius:8px; font-weight:700; font-size:.95rem; text-decoration:none; transition:all .2s; }
+    .btn-p:hover { background:#fcd34d; transform:translateY(-1px); box-shadow:0 8px 24px rgba(251,191,36,.3); }
+    .btn-g { display:inline-flex; align-items:center; gap:8px; padding:13px 30px; background:transparent; color:#f1f5f9; border:1px solid #334155; border-radius:8px; font-weight:600; font-size:.95rem; text-decoration:none; transition:all .2s; }
+    .btn-g:hover { border-color:#fbbf24; color:#fbbf24; }
+    .quote-block { background:linear-gradient(135deg,rgba(251,191,36,.07),rgba(248,113,113,.05)); border:1px solid rgba(251,191,36,.2); border-left:4px solid #fbbf24; border-radius:12px; padding:40px; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const GH = () => <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>;
+
+    const Nav = () => (
+      <nav style={{background:'rgba(8,12,20,.93)',backdropFilter:'blur(16px)',borderBottom:'1px solid #1e293b',position:'sticky',top:0,zIndex:50}}>
+        <div style={{maxWidth:'1200px',margin:'0 auto',padding:'0 24px',display:'flex',alignItems:'center',justifyContent:'space-between',height:'60px'}}>
+          <a href="index.html" style={{fontWeight:700,fontSize:'1.1rem',color:'#f1f5f9',textDecoration:'none'}}><span style={{color:'#22d3ee'}}>Faker</span>UI</a>
+          <div style={{display:'flex',gap:'24px',alignItems:'center',fontSize:'.875rem'}}>
+            <a href="engineering.html" style={{color:'#94a3b8',textDecoration:'none'}}>Engineering</a>
+            <a href="product.html" style={{color:'#94a3b8',textDecoration:'none'}}>Product</a>
+            <a href="capability.html" style={{color:'#94a3b8',textDecoration:'none'}}>Capability</a>
+            <a href="executive.html" style={{color:'#fbbf24',textDecoration:'none',fontWeight:600}}>Executive</a>
+            <a href="https://github.com/arvind3/fakerUI" target="_blank" style={{color:'#22d3ee',textDecoration:'none',fontFamily:'JetBrains Mono',fontSize:'.78rem',border:'1px solid rgba(34,211,238,.3)',padding:'5px 12px',borderRadius:'6px',display:'flex',alignItems:'center',gap:'6px'}}><GH /> GitHub</a>
+          </div>
+        </div>
+      </nav>
+    );
+
+    const Hero = () => (
+      <section className="hero-bg" style={{padding:'88px 24px 72px',textAlign:'center'}}>
+        <div style={{maxWidth:'740px',margin:'0 auto'}}>
+          <div className="fade-in" style={{marginBottom:'18px'}}><span className="tag" style={{background:'rgba(251,191,36,.1)',color:'#fbbf24',border:'1px solid rgba(251,191,36,.25)'}}>Executive Summary</span></div>
+          <h1 className="fade-in-1" style={{fontSize:'clamp(2rem,5vw,3.2rem)',fontWeight:700,lineHeight:1.15,letterSpacing:'-.03em',marginBottom:'20px'}}>
+            Every software team needs fake data.<br/>
+            <span className="gradient-text">We made it instant and free.</span>
+          </h1>
+          <p className="fade-in-2" style={{fontSize:'1.15rem',color:'#94a3b8',lineHeight:1.78,maxWidth:'600px',margin:'0 auto 36px'}}>
+            FakerUI eliminates one of software development's most persistent low-value tasks —
+            generating realistic test data — by running Python's complete Faker ecosystem directly in the browser,
+            with zero infrastructure cost, zero backend, and zero friction.
+          </p>
+          <div className="fade-in-3" style={{display:'flex',gap:'12px',justifyContent:'center',flexWrap:'wrap'}}>
+            <a href="https://arvind3.github.io/fakerUI/" target="_blank" className="btn-p">Open the Product ↗</a>
+            <a href="https://github.com/arvind3/fakerUI" target="_blank" className="btn-g"><GH /> GitHub</a>
+          </div>
+        </div>
+      </section>
+    );
+
+    const Opportunity = () => (
+      <section style={{padding:'64px 24px',maxWidth:'960px',margin:'0 auto'}}>
+        <div style={{background:'#0f172a',border:'1px solid #1e293b',borderRadius:'16px',padding:'44px'}}>
+          <p className="section-label">The Opportunity</p>
+          <h2 style={{fontSize:'1.7rem',fontWeight:700,marginBottom:'20px'}}>A universal problem, solved once</h2>
+          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'32px'}}>
+            <div>
+              <p style={{color:'#94a3b8',lineHeight:1.78,fontSize:'0.95rem',marginBottom:'16px'}}>
+                Every software engineering team — regardless of company size, industry, or stack — routinely
+                generates fake data. They do it for unit tests, integration tests, staging environments,
+                UI prototypes, data pipeline validation, and sales demos.
+              </p>
+              <p style={{color:'#94a3b8',lineHeight:1.78,fontSize:'0.95rem'}}>
+                Most teams solve this the same inefficient way: throwaway scripts, copied Faker snippets,
+                or expensive SaaS platforms. The problem is universal. The solutions are fragmented, unreliable,
+                or costly. FakerUI offers a third path: a free, browser-native, zero-infrastructure tool
+                that puts the complete Faker ecosystem in a tab.
+              </p>
+            </div>
+            <div style={{display:'flex',flexDirection:'column',gap:'16px'}}>
+              {[
+                {metric:'2–3 hours*',label:'Per-sprint time lost to manual test data generation across engineering teams',accent:'#f87171'},
+                {metric:'$0',label:'Infrastructure cost to deploy and scale FakerUI — it runs entirely on GitHub Pages',accent:'#34d399'},
+                {metric:'300+',label:'Faker methods accessible instantly without any code or installation',accent:'#22d3ee'},
+                {metric:'Zero',label:'Data leaves the user\'s browser — full compliance with GDPR, HIPAA, and CCPA constraints*',accent:'#a78bfa'},
+              ].map((m,i) => (
+                <div key={i} className="metric-card" style={{borderLeftColor:m.accent,padding:'16px 20px'}}>
+                  <div style={{fontSize:'1.5rem',fontWeight:700,color:m.accent,marginBottom:'4px'}}>{m.metric}</div>
+                  <div style={{fontSize:'0.83rem',color:'#94a3b8',lineHeight:1.5}}>{m.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+
+    const WhatWeBuilt = () => (
+      <section style={{padding:'0 24px 64px',maxWidth:'860px',margin:'0 auto'}}>
+        <p className="section-label">What We Built</p>
+        <h2 style={{fontSize:'1.7rem',fontWeight:700,marginBottom:'24px'}}>Three sentences</h2>
+        <div style={{background:'#0f172a',border:'1px solid #1e293b',borderRadius:'16px',padding:'40px'}}>
+          <div style={{display:'flex',flexDirection:'column',gap:'20px'}}>
+            <div style={{display:'flex',gap:'18px',alignItems:'flex-start'}}>
+              <span style={{fontFamily:'JetBrains Mono',fontWeight:700,fontSize:'1.5rem',color:'#fbbf24',lineHeight:1,flexShrink:0}}>01</span>
+              <p style={{fontSize:'1.05rem',color:'#f1f5f9',lineHeight:1.72}}>
+                <strong>FakerUI is a browser-native data generation platform</strong> that runs Python's full Faker library
+                in-browser via Pyodide — no backend, no installation, no API key required.
+              </p>
+            </div>
+            <div style={{display:'flex',gap:'18px',alignItems:'flex-start'}}>
+              <span style={{fontFamily:'JetBrains Mono',fontWeight:700,fontSize:'1.5rem',color:'#fbbf24',lineHeight:1,flexShrink:0}}>02</span>
+              <p style={{fontSize:'1.05rem',color:'#f1f5f9',lineHeight:1.72}}>
+                <strong>It is built for QA engineers, product designers, and data teams</strong> who need realistic,
+                reproducible, locale-correct datasets without writing scripts or provisioning infrastructure.
+              </p>
+            </div>
+            <div style={{display:'flex',gap:'18px',alignItems:'flex-start'}}>
+              <span style={{fontFamily:'JetBrains Mono',fontWeight:700,fontSize:'1.5rem',color:'#fbbf24',lineHeight:1,flexShrink:0}}>03</span>
+              <p style={{fontSize:'1.05rem',color:'#f1f5f9',lineHeight:1.72}}>
+                <strong>It converts any Faker method into a one-click data export</strong> — searchable catalog,
+                configurable schema builder, 40+ locale support, and JSON/CSV download — running offline after first load.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+
+    const Traction = () => (
+      <section style={{padding:'0 24px 64px',maxWidth:'860px',margin:'0 auto'}}>
+        <p className="section-label">Traction & Evidence</p>
+        <h2 style={{fontSize:'1.7rem',fontWeight:700,marginBottom:'24px'}}>Production-grade from day one</h2>
+        <div style={{background:'#0f172a',border:'1px solid #1e293b',borderRadius:'16px',padding:'36px 40px'}}>
+          {[
+            {icon:'🚀',title:'Live on GitHub Pages',detail:'Deployed via automated CI/CD — push to main triggers build, test, and deploy in one pipeline. No manual deployment steps.'},
+            {icon:'🔒',title:'Production security model',detail:'Strict method whitelisting, regex-validated method names, JSON schema validation on all parameters, and network blocking in the Pyodide runtime. Zero arbitrary code execution.'},
+            {icon:'🧪',title:'Multi-layer test coverage',detail:'Python catalog tests (pytest), React unit tests, and Playwright E2E smoke tests against the live deployment — all running in CI on every commit.'},
+            {icon:'📦',title:'Version-pinned and deterministic',detail:'Faker v19.13.0 and Pyodide v0.27.2 are locked in versions.lock.json. Any team using FakerUI gets identical output from the same seed, indefinitely.'},
+            {icon:'🧩',title:'Extensible plugin architecture',detail:'Plugin packs allow domain-specific Faker providers to be added via manifest.json without changing core code — enabling vertical customisation without forking.'},
+          ].map((t,i) => (
+            <div key={i} className="traction-item">
+              <span style={{fontSize:'1.5rem',flexShrink:0}}>{t.icon}</span>
+              <div>
+                <h3 style={{fontWeight:700,fontSize:'0.95rem',color:'#f1f5f9',marginBottom:'5px'}}>{t.title}</h3>
+                <p style={{fontSize:'0.86rem',color:'#94a3b8',lineHeight:1.6}}>{t.detail}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+
+    const StrategicValue = () => (
+      <section style={{padding:'0 24px 64px',maxWidth:'860px',margin:'0 auto'}}>
+        <p className="section-label">Strategic Value</p>
+        <h2 style={{fontSize:'1.7rem',fontWeight:700,marginBottom:'24px'}}>Why this matters beyond the immediate use case</h2>
+        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'16px'}}>
+          {[
+            {title:'Zero Marginal Cost at Scale',d:'FakerUI runs on GitHub Pages — a static file host. There is no server to provision, no database to maintain, no cost that scales with users. Ten users or ten thousand — the infrastructure cost is identical.',accent:'#34d399'},
+            {title:'Data Never Leaves the Device',d:'Because generation happens in-browser via Pyodide, user data — schemas, seeds, generated records — never touches a server. This is a structural compliance advantage for regulated industries.*',accent:'#22d3ee'},
+            {title:'Platform Extensibility',d:'The plugin pack architecture means FakerUI can be extended for healthcare, fintech, legal, and other verticals without changing the core product. Each domain community can own its plugin pack.*',accent:'#a78bfa'},
+            {title:'Version Trust as a Moat',d:'Pinned Faker versions and seed reproducibility create a dependency relationship: teams build their test fixtures around FakerUI\'s deterministic output. Switching costs accrue over time.',accent:'#fbbf24'},
+          ].map((s,i) => (
+            <div key={i} className="metric-card" style={{borderLeftColor:s.accent,padding:'22px 24px'}}>
+              <h3 style={{fontWeight:700,fontSize:'0.95rem',color:s.accent,marginBottom:'10px'}}>{s.title}</h3>
+              <p style={{fontSize:'0.86rem',color:'#94a3b8',lineHeight:1.65}}>{s.d}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+
+    const TheAsk = () => (
+      <section style={{padding:'0 24px 64px',maxWidth:'860px',margin:'0 auto'}}>
+        <p className="section-label">Next Step</p>
+        <h2 style={{fontSize:'1.7rem',fontWeight:700,marginBottom:'24px'}}>One clear action</h2>
+        <div style={{background:'linear-gradient(135deg,rgba(251,191,36,.08),rgba(248,113,113,.05))',border:'1px solid rgba(251,191,36,.2)',borderRadius:'16px',padding:'44px',textAlign:'center'}}>
+          <div style={{fontSize:'2.5rem',marginBottom:'16px'}}>⚡</div>
+          <h3 style={{fontSize:'1.4rem',fontWeight:700,marginBottom:'12px'}}>Try it. Right now.</h3>
+          <p style={{color:'#94a3b8',fontSize:'1rem',lineHeight:1.72,maxWidth:'480px',margin:'0 auto 32px'}}>
+            The fastest way to understand FakerUI's value is to use it. Open the live site,
+            search for "email", set locale to your market, and export 500 rows as CSV.
+            That is the entire experience — in under 60 seconds, on any device, at zero cost.*
+          </p>
+          <div style={{display:'flex',gap:'14px',justifyContent:'center',flexWrap:'wrap'}}>
+            <a href="https://arvind3.github.io/fakerUI/" target="_blank" className="btn-p">Open FakerUI Now ↗</a>
+            <a href="https://github.com/arvind3/fakerUI" target="_blank" className="btn-g"><GH /> Star on GitHub</a>
+          </div>
+        </div>
+      </section>
+    );
+
+    const FounderQuote = () => (
+      <section style={{padding:'0 24px 88px',maxWidth:'760px',margin:'0 auto'}}>
+        <div className="quote-block">
+          <p style={{fontSize:'0.72rem',fontFamily:'JetBrains Mono',color:'#fbbf24',letterSpacing:'.1em',textTransform:'uppercase',marginBottom:'20px'}}>Founder Perspective*</p>
+          <blockquote style={{fontSize:'1.2rem',color:'#f1f5f9',lineHeight:1.78,fontStyle:'italic',fontWeight:500,marginBottom:'24px'}}>
+            "I built FakerUI because I was tired of context-switching between writing code and writing the data to test it.
+            Every new feature required the same throwaway script, the same Faker docs tab, the same manual CSV conversion.
+            The problem is obviously solvable — so I solved it once, for everyone.
+            The bigger vision is a world where synthetic data generation is as instant and invisible as autocomplete:
+            you describe the shape of data you need, and it appears. We're not there yet. But FakerUI is the foundation."
+          </blockquote>
+          <div style={{display:'flex',alignItems:'center',gap:'12px'}}>
+            <div style={{width:'40px',height:'40px',borderRadius:'50%',background:'linear-gradient(135deg,#fbbf24,#f87171)',display:'flex',alignItems:'center',justifyContent:'center',fontWeight:700,fontSize:'0.9rem',color:'#080c14'}}>A</div>
+            <div>
+              <p style={{fontWeight:700,fontSize:'0.9rem',color:'#f1f5f9'}}>Arvind</p>
+              <p style={{fontSize:'0.78rem',color:'#475569',fontFamily:'JetBrains Mono'}}>Creator, FakerUI &nbsp;·&nbsp; github.com/arvind3/fakerUI</p>
+            </div>
+          </div>
+        </div>
+        <p style={{fontSize:'0.72rem',color:'#475569',fontFamily:'JetBrains Mono',marginTop:'16px',textAlign:'right'}}>* Quote inferred from repository analysis and project intent</p>
+      </section>
+    );
+
+    const Footer = () => (
+      <footer style={{borderTop:'1px solid #1e293b',padding:'32px 24px',background:'#080c14'}}>
+        <div style={{maxWidth:'1200px',margin:'0 auto',display:'flex',alignItems:'center',justifyContent:'space-between',flexWrap:'wrap',gap:'16px'}}>
+          <div>
+            <span style={{fontWeight:700,fontSize:'1rem'}}><span style={{color:'#22d3ee'}}>Faker</span>UI · Executive Summary</span>
+            <p style={{fontSize:'0.72rem',color:'#475569',fontFamily:'JetBrains Mono',marginTop:'5px'}}>* = inferred content</p>
+          </div>
+          <div style={{display:'flex',gap:'16px',alignItems:'center'}}>
+            <a href="index.html" style={{color:'#94a3b8',textDecoration:'none',fontSize:'0.85rem'}}>← Hub</a>
+            <a href="https://github.com/arvind3/fakerUI" target="_blank" style={{color:'#94a3b8',textDecoration:'none',fontSize:'0.85rem',display:'flex',alignItems:'center',gap:'6px',border:'1px solid #334155',padding:'7px 14px',borderRadius:'8px'}}><GH /> GitHub</a>
+          </div>
+        </div>
+      </footer>
+    );
+
+    const App = () => <div><Nav /><Hero /><Opportunity /><WhatWeBuilt /><Traction /><StrategicValue /><TheAsk /><FounderQuote /><Footer /></div>;
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>
