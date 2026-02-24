@@ -136,6 +136,15 @@ All five files share a **unified design language**. Before writing code, commit 
 - No placeholder content — every section must have real, repo-derived content
 - Accessibility: semantic HTML, proper heading hierarchy, sufficient color contrast
 
+**Mobile quality gate (must pass before final output):**
+- `<meta name="viewport" content="width=device-width, initial-scale=1.0">` is present in every page
+- 360px width is supported with no horizontal scrolling
+- All major 2+ column layouts collapse to 1 column below 900px
+- Navigation works on mobile (hamburger or wrapped links)
+- Interactive targets (links/buttons) have at least 44px hit area
+- Long code blocks and diagrams are horizontally scrollable instead of breaking layout
+- Validate each generated page with a quick mobile smoke test before creating PR
+
 ---
 
 ## PHASE 5 — PAGE SPECIFICATIONS
